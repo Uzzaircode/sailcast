@@ -68,9 +68,9 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a>Home</a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
+                        <a href="javascript:;" data-toggle="modal" data-target="#LoginModalComponent">Login</a>
 
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}">Register</a>
@@ -78,7 +78,7 @@
                     @endauth
                 </div>
             @endif
-
+            <loginmodalcomponent></loginmodalcomponent>
             <div class="content">
                 <div class="title m-b-md">
                     Laravel
