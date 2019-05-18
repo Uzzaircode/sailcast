@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -1763,6 +1763,8 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -1801,11 +1803,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      loading: false,
+      errors: []
     };
   },
   methods: {
@@ -1815,11 +1832,31 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         return false;
       }
+    },
+    attemptLogin: function attemptLogin() {
+      var _this = this;
+
+      this.errors = [];
+      this.loading = true;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/login", {
+        email: this.email,
+        password: this.password
+      }).then(function (resp) {
+        location.reload();
+      })["catch"](function (error) {
+        _this.loading = false;
+
+        if (error.response.status == 422) {
+          _this.errors.push("Sorry! We could'nt verify your account details");
+        } else {
+          _this.errors.push("Something went wrong. Please try again");
+        }
+      });
     }
   },
   computed: {
     isValidLoginForm: function isValidLoginForm() {
-      return this.emailIsValid() && this.password;
+      return this.emailIsValid() && this.password && !this.loading;
     }
   }
 });
@@ -37133,6 +37170,28 @@ var render = function() {
           _vm._m(0),
           _vm._v(" "),
           _c("div", { staticClass: "modal-body" }, [
+            _vm.errors.length > 0
+              ? _c(
+                  "ul",
+                  { staticClass: " list-group alert alert-danger " },
+                  _vm._l(_vm.errors, function(error) {
+                    return _c(
+                      "li",
+                      {
+                        key: _vm.errors.indexOf(error),
+                        staticClass: "list-group-item"
+                      },
+                      [
+                        _vm._v(
+                          "\n              " + _vm._s(error) + "\n          "
+                        )
+                      ]
+                    )
+                  }),
+                  0
+                )
+              : _vm._e(),
+            _vm._v(" "),
             _c("form", [
               _c("div", { staticClass: "form-group" }, [
                 _c("label", [_vm._v("Email")]),
@@ -37202,9 +37261,14 @@ var render = function() {
               "button",
               {
                 staticClass: "btn btn-primary",
-                attrs: { type: "button", disabled: !_vm.isValidLoginForm }
+                attrs: { type: "button", disabled: !_vm.isValidLoginForm },
+                on: {
+                  click: function($event) {
+                    return _vm.attemptLogin()
+                  }
+                }
               },
-              [_vm._v("Save changes")]
+              [_vm._v("Login")]
             )
           ])
         ])
@@ -49546,7 +49610,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 1:
+/***/ 0:
 /*!***********************************!*\
   !*** multi ./resources/js/app.js ***!
   \***********************************/

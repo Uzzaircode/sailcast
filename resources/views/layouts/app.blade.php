@@ -41,7 +41,7 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a href="javascript:;" data-toggle="modal" data-target="#LoginModalComponent">Login</a>
+                                <a class="nav-link" href="javascript:;" data-toggle="modal" data-target="#LoginModalComponent">Login</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
@@ -75,8 +75,10 @@
         <main class="py-4">
             @yield('content')
         </main>
-
+        
+        @if(!auth()->check())
         <loginmodalcomponent></loginmodalcomponent>
+        @endif
     </div>
 </body>
 </html>
