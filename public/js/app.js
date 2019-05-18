@@ -1815,6 +1815,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -37173,17 +37175,19 @@ var render = function() {
             _vm.errors.length > 0
               ? _c(
                   "ul",
-                  { staticClass: " list-group alert alert-danger " },
+                  { staticClass: "list-group mb-3" },
                   _vm._l(_vm.errors, function(error) {
                     return _c(
                       "li",
                       {
                         key: _vm.errors.indexOf(error),
-                        staticClass: "list-group-item"
+                        staticClass: "list-group-item list-group-item-danger"
                       },
                       [
                         _vm._v(
-                          "\n              " + _vm._s(error) + "\n          "
+                          "\n              \n              " +
+                            _vm._s(error) +
+                            "\n\n          "
                         )
                       ]
                     )

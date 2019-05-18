@@ -16,10 +16,12 @@
           </button>
         </div>
         <div class="modal-body">
-          <ul class=" list-group alert alert-danger " v-if="errors.length > 0">
+          <ul class="list-group mb-3" v-if="errors.length > 0">
 
-            <li class="list-group-item" v-for="error in errors" :key="errors.indexOf(error)">
+            <li class="list-group-item list-group-item-danger" v-for="error in errors" :key="errors.indexOf(error)">
+                
                 {{ error }}
+
             </li>
 
           </ul>
