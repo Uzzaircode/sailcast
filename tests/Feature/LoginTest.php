@@ -10,29 +10,23 @@ class LoginTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function __construct()
-    {
-
-        $this->newUser = factory(User::class)->create();
-
-    }
-
     /** @test */
 
     public function correct_response_returned_after_successful_login()
     {
+        $user = factory(User::class)->create();
 
         $this->postJson('/login', [
 
-            'email' => $this->newUser->email,
-            'password' => 'secret',
+            'email' => $user->email,
+            'password' => 'password',
 
         ])
             ->assertStatus(200)
             ->assertJson([
-                'status' => 'OK',
+                'status' => 'ok',
             ])
-            ->assertSessionHas('success');
+            ->assertSessionHas('success', 'Logged in successfully');
 
     }
 
@@ -40,10 +34,11 @@ class LoginTest extends TestCase
 
     public function user_will_receives_correct_message_upon_login_invalid_credentials()
     {
+        $user = factory(User::class)->create();
 
         $this->postJson('/login', [
 
-            'email' => $this->newUser->email,
+            'email' => $user->email,
             'password' => 'wrongPassword',
 
         ])
